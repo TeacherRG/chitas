@@ -1,24 +1,55 @@
-<div className="flex flex-col gap-1 text-gray-500 mb-6 border-l-4 border-indigo-200 pl-4">
-                            <span>📅 {t(dayData.dateGreg)}</span>
-                            <span>✡️ {t(dayData.dateJewish)}</span>
+className="bg-white/20 p-3 rounded-xl text-white disabled:opacity-30 hover:bg-white/30 transition-all">
+                                ← Назад
+                            </button>
+                            <button 
+                                disabled={currentFileIndex === fileList.length - 1} 
+                                onClick={() => setCurrentFileIndex(currentFileIndex + 1)}
+                                className="bg-white/20 p-3 rounded-xl text-white disabled:opacity-30 hover:bg-white/30 transition-all">
+                                Вперёд →
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* Основная карточка дня */}
+                    <div className="bg-white rounded-[2rem] p-6 shadow-2xl overflow-hidden border-b-8 border-indigo-200">
+                        <h1 className="text-3xl font-extrabold text-indigo-700 mb-2 leading-tight">
+                            {getTxt(dayData.title)}
+                        </h1>
+                        
+                        <div className="flex flex-col gap-1 text-gray-500 mb-8 border-l-4 border-indigo-100 pl-4 py-1 italic">
+                            <span className="flex items-center gap-2">📅 {getTxt(dayData.dateGreg)}</span>
+                            <span className="flex items-center gap-2">✡️ {getTxt(dayData.dateJewish)}</span>
                         </div>
 
-                        [cite_start]{/* Секции обучения [cite: 58-61] */}
-                        {t(dayData.content).map((section, idx) => (
-                            <div key={idx} className="mb-8 last:mb-0">
-                                <h2 className="text-xl font-bold text-blue-600 mb-2">{section.title}</h2>
-                                <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line">{section.text}</p>
-                                {section.lesson && (
-                                    <div className="mt-3 p-4 bg-yellow-50 rounded-2xl border-l-4 border-yellow-400 font-medium">
-                                        {section.lesson}
-                                    </div>
-                                )}
-                                {section.funFact && (
-                                    <div className="mt-2 text-sm italic text-blue-500">{section.funFact}</div>
-                                )}
-                            </div>
-                        ))}
+                        {/* Отрисовка всех разделов обучения (Хумаш, Тания и т.д.) */}
+                        <div className="space-y-10">
+                            {sections.map((section, idx) => (
+                                <div key={idx} className="relative group">
+                                    <h2 className="text-xl font-bold text-blue-600 mb-3 flex items-center">
+                                        <span className="bg-blue-100 text-blue-600 w-8 h-8 rounded-full flex items-center justify-center text-sm mr-2">{idx + 1}</span>
+                                        {section.title}
+                                    </h2>
+                                    <p className="text-gray-700 leading-relaxed text-lg whitespace-pre-line bg-slate-50 p-4 rounded-2xl">
+                                        {section.text}
+                                    </p>
+                                    {section.lesson && (
+                                        <div className="mt-4 p-4 bg-amber-50 rounded-2xl border-l-4 border-amber-400 font-medium text-amber-900 shadow-sm">
+                                            {section.lesson}
+                                        </div>
+                                    )}
+                                    {section.funFact && (
+                                        <div className="mt-3 text-sm text-indigo-500 font-semibold bg-indigo-50 py-1 px-3 rounded-full inline-block">
+                                            {section.funFact}
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
+                    
+                    <footer className="text-center text-indigo-100/60 mt-8 mb-4 text-sm font-medium">
+                        🌟 Хитас для детей • Один день за раз • 5786 🌟
+                    </footer>
                 </div>
             );
         };
